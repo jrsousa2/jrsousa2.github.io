@@ -2,7 +2,7 @@
 
 ### Page under construction. Page to showcase professional portfolio, with links and other information.
 
-[José's GitHub page](https://jrsousa2.github.io)
+[José's GitHub-hosted website](https://jrsousa2.github.io)
 
 ### Personal math research
 I plan to upload my latest paper in Number Theory here as soon as it's finished (very close now). 
