@@ -4,4 +4,18 @@ git add .
 git commit -m "First commit"
 git branch -M main
 git remote add origin https://github.com/jrsousa2/jrsousa2.github.io.git
+
+# AT THIS STEP, IT WILL REQUIRE CREDENTIALS
 git push -u origin main
+
+# MY GH PAGE URL
+https://jrsousa2.github.io
+
+# A GUI applet created in Python (for sale on GUMROAD)
+https://jrsousa2.gumroad.com/l/Plays_Sync
+
+# GHN
+https://arxiv.org/html/1810.07877v7
+
+# GHP
+https://arxiv.org/html/1811.11305v18
