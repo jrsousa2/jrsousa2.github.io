@@ -14,9 +14,9 @@ IF "%~1"=="" (
  set GIT_TRACE=1
  echo FORCE A RE-READING OF THE .gitignore list
  git rm -r --cached .
- git add .
+ git add -A
 REM git branch -M main
- git commit -m %Desc%
+ git commit -m "%Desc%"
  REM COMMENTED OUT CODE FORCES A PUSH
  REM It loses track of remote updates
  REM git push origin main --force
@@ -24,6 +24,11 @@ REM git branch -M main
  REM echo sem nada mostra o echo status
  echo .
  echo .
- echo VIEWS IF BATCH SUCCEEDED
- git log -n 1
+ echo VIEWS IF BATCH SUCCEEDED (USING "git log -n 1" IS NOT TOO USEFUL)
+ git log -1 --name-status 
+ echo .
+ echo .
+ echo VIEWS STATUS
+ git status
+ 
 
