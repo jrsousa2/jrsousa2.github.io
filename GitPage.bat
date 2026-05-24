@@ -15,7 +15,7 @@ IF "%~1"=="" (
  echo FORCE A RE-READING OF THE .gitignore list
  git rm -r --cached .
  git add .
- git branch -M main
+REM git branch -M main
  git commit -m %Desc%
  REM COMMENTED OUT CODE FORCES A PUSH
  REM It loses track of remote updates
