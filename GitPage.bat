@@ -22,12 +22,13 @@ REM git branch -M main
  REM git push origin main --force
  git push origin main
  REM echo sem nada mostra o echo status
- echo .
- echo .
- echo VIEWS IF BATCH SUCCEEDED (USING "git log -n 1" IS NOT TOO USEFUL)
+ echo.
+ echo.
+ echo VIEWS IF BATCH SUCCEEDED 
+REM USING "git log -n 1" IS NOT TOO USEFUL
  git log -1 --name-status 
- echo .
- echo .
+ echo.
+ echo.
  echo VIEWS STATUS
  git status
  
