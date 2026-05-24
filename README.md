@@ -4,7 +4,7 @@
 
 [José's GitHub page](https://jrsousa2.github.io)
 
-## Math research
+### Personal math research
 I plan to upload my latest paper in Number Theory here as soon as it's finished (very close now). It introduces a new symmetry relation that may have implications to proving algebraicity or transcendentality of numbers.
 It is a generalization of the Riemann functional equation with three parameters.
 
