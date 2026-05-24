@@ -12,8 +12,7 @@ IF "%~1"=="" (
 
  cd D:\GH
  set GIT_TRACE=1
- echo TO FORCE A RE-READING OF THE .gitignore list
- echo uncomment the next line of code
+ echo TO FORCE A RE-READING OF THE .gitignore list uncomment the next line
  REM git rm -r --cached .
  git add -A
 REM git branch -M main
