@@ -1,6 +1,6 @@
 ## My GitHub webpage
 
-### Page under construction. Page to showcase professional portfolio, with links and other information.
+### Personal website to showcase professional portfolio, with links and other information.
 
 [José's GitHub-hosted website](https://jrsousa2.github.io)
 
