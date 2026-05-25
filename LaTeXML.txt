@@ -1,0 +1,12 @@
+✔ When you should use it
+
+Use LaTeXML if you want:
+
+arXiv-like HTML conversion pipeline
+full LaTeX document → structured HTML site
+publishing-grade output
+
+Don’t use it if you just want:
+
+a personal GitHub Pages site
+quick math rendering (use MathJax instead)
