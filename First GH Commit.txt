@@ -19,3 +19,12 @@ https://arxiv.org/html/1810.07877v7
 
 # GHP
 https://arxiv.org/html/1811.11305v18
+
+# VIEW IN GH
+https://github.com/jrsousa2/Resume/blob/main/Jose's%20resume.pdf
+
+# VIEW IN GH
+https://github.com/jrsousa2/Resume/blob/main/Jose's%20resume-DS.pdf
+
+# STRAIGHT DOWNLOAD 
+https://raw.githubusercontent.com/jrsousa2/Resume/main/Jose's%20resume-DS.pdf
