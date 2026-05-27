@@ -1,0 +1,18 @@
+Admin ⚙️
+Create Account
+Create Property
+Choose:
+Property name: anything
+Time zone: NY
+Currency: USD
+2. Create a Web Data Stream
+
+After property creation:
+STREAM NAME
+My GitHub page
+STREAM URL
+https://jrsousa2.github.io
+STREAM ID
+14952234176
+MEASUREMENT ID
+G-B3E11SW154
