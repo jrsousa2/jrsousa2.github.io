@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Before / After AI enhancement</title>
+
+<style>
+body {
+  background: #111;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+/* 👇 MATCH AFTER IMAGE DIMENSIONS */
+.container {
+  position: relative;
+  width: 680px;
+  height: 408px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  max-width: 95%;
+}
+
+/* BOTH images forced to same frame */
+.container img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+}
+
+/* AFTER image clipped */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  border-right: 2px solid white;
+}
+
+.overlay img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider {
+  width: 680px;
+  max-width: 95%;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Before / After Enhancement</h2>
+
+<div class="container">
+
+  <!-- BEFORE -->
+  <img src="https://raw.githubusercontent.com/jrsousa2/Python/main/RealESRGan/teaser.jpg">
+
+  <!-- AFTER -->
+  <div class="overlay" id="overlay">
+    <img src="https://raw.githubusercontent.com/jrsousa2/Python/main/RealESRGan/teaser_out.jpg">
+  </div>
+
+</div>
+
+<input type="range" min="0" max="100" value="50" class="slider" id="slider">
+
+<script>
+const slider = document.getElementById("slider");
+const overlay = document.getElementById("overlay");
+
+slider.oninput = function () {
+  overlay.style.width = this.value + "%";
+};
+</script>
+
+</body>
+</html>
