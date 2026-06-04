@@ -1,0 +1,50 @@
+<section id="stock-alert" style="margin: 40px 0; font-family: Arial, sans-serif;">
+  
+    <h2 style="color: #2DA44E;">📈 Stock Alert Automation</h2>
+  
+    <p>
+      A serverless stock monitoring system built with <strong>GitHub Actions</strong> and Python.
+      It runs automatically on a schedule and sends me real-time e-mail alerts when a stock price hits a target.
+    </p>
+  
+    <h3>⚙️ How it works</h3>
+    <ul>
+      <li>Runs on GitHub Actions (weekday schedule: 2pm EST)</li>
+      <li>Fetches live stock data using <code>yfinance</code></li>
+      <li>Evaluates custom price thresholds securely stored in GitHub Secrets</li>
+      <li>Sends email alerts via Gmail SMTP</li>
+      <li>No server required (fully serverless execution)</li>
+    </ul>
+  
+    <h3>🧠 Architecture</h3>
+    <pre style="background:#f6f8fa; padding:10px; border-radius:6px;">
+  GitHub Actions (cron)
+          ↓
+  Python Script
+          ↓
+  yfinance API
+          ↓
+  Rule Engine (threshold check)
+          ↓
+  SMTP Email Alert
+    </pre>
+  
+    <h3>🔐 Security</h3>
+    <ul>
+      <li>All secrets stored in GitHub Secrets</li>
+      <li>No hardcoded API keys or credentials</li>
+      <li>Isolated execution per workflow run</li>
+    </ul>
+  
+    <h3>🚀 Tech Stack</h3>
+    <ul>
+      <li>Python 3.11</li>
+      <li>GitHub Actions</li>
+      <li>yfinance</li>
+      <li>SMTP (Gmail App Password)</li>
+    </ul>
+  
+    <h3>📊 Status</h3>
+    <p><span style="color: #2DA44E; font-weight: bold;">🟢 Active</span> — running on GitHub Actions (weekdays)</p>
+  
+  </section>
