@@ -25,11 +25,13 @@ IF "%~1"=="" (
  echo.
  echo.
  echo VIEWS IF BATCH SUCCEEDED 
-REM USING "git log -n 1" IS NOT TOO USEFUL
+ echo.
+ REM USING "git log -n 1" IS NOT TOO USEFUL
  git log -1 --name-status 
  echo.
  echo.
  echo VIEWS STATUS
+ echo.
  git status
  
 
