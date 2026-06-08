@@ -1,6 +1,9 @@
 @echo off
 REM Check if the argument %1 is provided
 
+REM SAVE CUR DIR
+set CURDIR=%CD%
+
 IF "%~1"=="" (
     echo Setting description to Updt
     echo.
@@ -33,5 +36,6 @@ IF "%~1"=="" (
  echo VIEWS STATUS
  echo.
  git status
+ cd %CURDIR%
  
 
