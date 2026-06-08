@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>A New Method for the Cubic Polynomial Equation</title>
+<!--Generated on Sun Jun  7 22:57:32 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on November 6, 2021.-->
+
+<link rel="stylesheet" href="LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="ltx-article.css" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">A New Method for the Cubic Polynomial Equation</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jose Risomar Sousa
+</span></span>
+</div>
+<div class="ltx_dates">(November 6, 2021)</div>
+
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p">I present a method to solve the general cubic polynomial equation based on six years of research that started when, in the fifth grade, I first learned of Bhaskara’s formula for the quadratic equation. I was fascinated by Bhaskara’s formula and naively thought I could replicate his method for the third degree equation, but only succeeded after countless failed attempts. The solution involves a simple transformation to form a cube and which, by chance, happens to reduce the degree of the equation from three to two (which seems to be the case of all polynomial equations that admit solutions by means of radicals).</p>
+</div>
+<section id="S1" class="ltx_section ltx_indent_first">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1 </span>Introduction</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">In Brazil, students learn how to solve linear equations and system of equations (on <math id="S1.p1.m1" class="ltx_Math" alttext="\mathbb{Q}" display="inline"><mi>ℚ</mi></math>) in or around the fifth grade, before being introduced to real numbers and moving on to the more challenging subject of non-linear equations in the sixth grade.
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">As a student with a certain gift for mathematics, I used to read math textbooks from more advanced grades and that is how I first learned about Bhaskara’s formula for the quadratic equation, when I was in the fifth grade. With my very curious mind, I would then become so obsessed with that formula that I spent years and years trying to find a similar formula for the cubic polynomial equation. I would scratch pages and more pages of books and copybooks with vain or naive attempts to solve the cubic equation, trying to imitate the process developed by Bhaskara.
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">But as the saying goes, search and you will find, and after trying lots and lots of different approaches, some creative but insufficient, and some plain wrong, I finally succeeded when I was in my second year of high school in Brazil. I was extremely happy and filled with excitement for my discovery.
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">In that same year, after writing a letter to a professor from the School of Communications and Arts of the University of São Paulo, (ECA-USP), whom I knew from his column in a Brazilian pop-science magazine called <span class="ltx_text ltx_font_italic">Super Interessante</span>, I was very surprised to actually receive a call from him. We then scheduled a little gathering at the university to chat.
+It was my first time going into the lush, green and pleasant campus of the University of São Paulo. I was overwhelmed with the academic atmosphere and spent some time looking at stuff in the ECA premises and day-dreaming. Little did I know that two years later I would be going to that university myself, whose selection process is notoriously competitive and hard, since it is the best higher education school in the country.
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p5" class="ltx_para">
+<p class="ltx_p">In the year that I got into the University of São Paulo, I tried to reach out to a few professors at the Institute of Mathematics and Statistics (IME-USP), but I probably approached them somewhat crudely and did not get much attention.
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p6" class="ltx_para">
+<p class="ltx_p">Another curious story worth mentioning is the blind letters I sent abroad to the department of mathematics of a few universities. I received only one response, from a professor of Yale University, and some of the wording in his letter I remember to this very day,
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p7" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text ltx_font_italic">“Dear J.R. Sousa,
+<br class="ltx_break">
+<br class="ltx_break">I wish our undergraduate students wrote mathematics as neatly as you do, however, formulas for the cubic and quartic polynomial equations have been known for close to five centuries now, and a rigorous mathematical proof that no such expression exists for the roots of a general polynomial of degree 5 or higher was given by Abel and Galois in 1824.”
+<br class="ltx_break"></span></p>
+</div>
+<div id="S1.p8" class="ltx_para">
+<p class="ltx_p">This is only the first paragraph of the letter and very close to the wording he actually used. I do not remember exactly which year he referenced in the letter, so I am assuming it was 1824, though that may not be the same year he used.
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p9" class="ltx_para">
+<p class="ltx_p">Shortly after solving the cubic equation, I also found a way to solve the quartic equation, with a system of equations that reduces to an equation of the third degree (that is why the professor mentions it in his letter). It was much easier to figure than the cubic equation, but this paper will not cover it.
+<br class="ltx_break"></p>
+</div>
+<div id="S1.p10" class="ltx_para">
+<p class="ltx_p">It is possible that the solution I discovered was lost in time, as I never really published it, and possibly neither did the people I showed it to. But it is by no means a certainty, if the people who have seen it shared it with others or even published it themselves somewhere, though I really hope it was not the case and it is likely not the case.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section ltx_indent_first">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2 </span>The Solution</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">It was not easy for me to have access to bibliographical references in the past and run searches on a given topic, so I had no knowledge of the existing formulas due to Scipione del Ferro and Cardano (actually Tartaglia) from the 16th century<span class="ltx_text" style="color:#00FF00;">
+<cite class="ltx_cite ltx_citemacro_cite"><sup class="ltx_sup"><a href="#bib.bib1" title="" class="ltx_ref">1</a></sup></cite></span>. If one wanted to research the literature for prior results, one had to go to a library and run manual searches. And then again these searches were only as good as the library’s collection. But it was actually good that I did not have access to or did not think about looking for books on this theme, as that might have demotivated me to try and find my own solution.
+<br class="ltx_break"></p>
+</div>
+<div id="S2.p2" class="ltx_para">
+<p class="ltx_p">Now let us see what the solution was. Here I use the very same notations that I used back in the day, so this paper recreates the solution in its very original form. I used Greek letters for the variables I introduced into the equation, except for one.
+<br class="ltx_break"></p>
+</div>
+<div id="S2.p3" class="ltx_para ltx_indent">
+<p class="ltx_p">Starting from the non-monic cubic polynomial equation,</p>
+<table id="S2.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E1.m1" class="ltx_Math" alttext="a\,x^{3}+b\,x^{2}+c\,x+d=0" display="block"><mrow><mrow><mrow><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>x</mi><mn>3</mn></msup></mrow><mo>+</mo><mrow><mi>b</mi><mo lspace="0.170em">⁢</mo><msup><mi>x</mi><mn>2</mn></msup></mrow><mo>+</mo><mrow><mi>c</mi><mo lspace="0.170em">⁢</mo><mi>x</mi></mrow><mo>+</mo><mi>d</mi></mrow><mo>=</mo><mn>0</mn></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right"><span class="ltx_text" style="color:#000000;">(<span class="ltx_text" style="color:#B80000;">1</span>)</span></span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">it can be transformed by letting <math id="S2.p3.m1" class="ltx_Math" alttext="x=\pi+m" display="inline"><mrow><mi>x</mi><mo>=</mo><mrow><mi>π</mi><mo>+</mo><mi>m</mi></mrow></mrow></math>, giving:</p>
+<table id="S2.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E2.m1" class="ltx_Math" alttext="a\,\pi^{3}+\pi^{2}(3\,a\,m+b)+\pi(3\,a\,m^{2}+2\,b\,m+c)+a\,m^{3}+b\,m^{2}+c\,%
+m+d=0" display="block"><mrow><mrow><mrow><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>π</mi><mn>3</mn></msup></mrow><mo>+</mo><mrow><msup><mi>π</mi><mn>2</mn></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>m</mi></mrow><mo>+</mo><mi>b</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>π</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>2</mn></msup></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0.170em">⁢</mo><mi>b</mi><mo lspace="0.170em">⁢</mo><mi>m</mi></mrow><mo>+</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>3</mn></msup></mrow><mo>+</mo><mrow><mi>b</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>2</mn></msup></mrow><mo>+</mo><mrow><mi>c</mi><mo lspace="0.170em">⁢</mo><mi>m</mi></mrow><mo>+</mo><mi>d</mi></mrow><mo>=</mo><mn>0</mn></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right"><span class="ltx_text" style="color:#000000;">(<span class="ltx_text" style="color:#B80000;">2</span>)</span></span></td>
+</tr></tbody>
+</table>
+<br class="ltx_break">
+<p class="ltx_p">The idea I had was to form a cube like Bhaskara did in his method, hence I came up with the following system of equations:</p>
+<table id="S2.Ex1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.Ex1.m1" class="ltx_Math" alttext="\begin{cases}\Delta^{3}=a\,m^{3}+b\,m^{2}+c\,m+d\\
+3\,\Delta^{2}\,\delta=3\,a\,m^{2}+2\,b\,m+c\\
+3\,\Delta\,\delta^{2}=3\,a\,m+b\\
+\end{cases}" display="block"><mrow><mo>{</mo><mtable columnspacing="5pt" displaystyle="true" rowspacing="0pt"><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><msup><mi mathvariant="normal">Δ</mi><mn>3</mn></msup><mo>=</mo><mrow><mrow><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>3</mn></msup></mrow><mo>+</mo><mrow><mi>b</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>2</mn></msup></mrow><mo>+</mo><mrow><mi>c</mi><mo lspace="0.170em">⁢</mo><mi>m</mi></mrow><mo>+</mo><mi>d</mi></mrow></mrow></mtd><mtd></mtd></mtr><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><msup><mi mathvariant="normal">Δ</mi><mn>2</mn></msup><mo>⁢</mo><mi>δ</mi></mrow><mo>=</mo><mrow><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>2</mn></msup></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0.170em">⁢</mo><mi>b</mi><mo lspace="0.170em">⁢</mo><mi>m</mi></mrow><mo>+</mo><mi>c</mi></mrow></mrow></mtd><mtd></mtd></mtr><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi mathvariant="normal">Δ</mi><mo lspace="0.170em">⁢</mo><msup><mi>δ</mi><mn>2</mn></msup></mrow><mo>=</mo><mrow><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>m</mi></mrow><mo>+</mo><mi>b</mi></mrow></mrow></mtd><mtd></mtd></mtr></mtable></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">If you try to solve this system, an equation of the second degree in <math id="S2.p3.m2" class="ltx_Math" alttext="m" display="inline"><mi>m</mi></math> is obtained, which is a surprising coincidence and also the reason why the method works. That is, the system reduces to,</p>
+<table id="S2.E3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E3.m1" class="ltx_Math" alttext="m^{2}(b^{2}-3\,a\,c)+m(b\,c-9\,a\,d)+c^{2}-3\,b\,d=0\text{,}" display="block"><mrow><mrow><mrow><mrow><msup><mi>m</mi><mn>2</mn></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>c</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>m</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><mi>b</mi><mo lspace="0.170em">⁢</mo><mi>c</mi></mrow><mo>−</mo><mrow><mn>9</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>d</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><msup><mi>c</mi><mn>2</mn></msup></mrow><mo>−</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>b</mi><mo lspace="0.170em">⁢</mo><mi>d</mi></mrow></mrow><mo>=</mo><mrow><mn>0</mn><mo>⁢</mo><mtext>,</mtext></mrow></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right"><span class="ltx_text" style="color:#000000;">(<span class="ltx_text" style="color:#B80000;">3</span>)</span></span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">whose solution, if <math id="S2.p3.m3" class="ltx_Math" alttext="b^{2}-3\,a\,c\neq 0" display="inline"><mrow><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>c</mi></mrow></mrow><mo>≠</mo><mn>0</mn></mrow></math>, is:</p>
+<table id="S2.E4" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E4.m1" class="ltx_Math" alttext="m=\frac{-(b\,c-9\,a\,d)\pm\sqrt{(b\,c-9\,a\,d)^{2}-4(b^{2}-3\,a\,c)(c^{2}-3\,b%
+\,d)}}{2(b^{2}-3\,a\,c)}" display="block"><mrow><mi>m</mi><mo>=</mo><mfrac><mrow><mrow><mo>−</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><mi>b</mi><mo lspace="0.170em">⁢</mo><mi>c</mi></mrow><mo>−</mo><mrow><mn>9</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>d</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>±</mo><msqrt><mrow><msup><mrow><mo stretchy="false">(</mo><mrow><mrow><mi>b</mi><mo lspace="0.170em">⁢</mo><mi>c</mi></mrow><mo>−</mo><mrow><mn>9</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>d</mi></mrow></mrow><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>−</mo><mrow><mn>4</mn><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>c</mi></mrow></mrow><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>−</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>b</mi><mo lspace="0.170em">⁢</mo><mi>d</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></msqrt></mrow><mrow><mn>2</mn><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><mi>c</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mfrac></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right"><span class="ltx_text" style="color:#000000;">(<span class="ltx_text" style="color:#B80000;">4</span>)</span></span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Since the biggest hurdle is now out of the way, solving equation (<span class="ltx_text" style="color:#B80000;">
+<a href="#S2.E2" title="In 2 The Solution ‣ A New Method for the Cubic Polynomial Equation" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a></span>) becomes really simple,</p>
+<table id="S2.E5" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E5.m1" class="ltx_Math" alttext="a\,\pi^{3}+3\,\Delta\,(\delta\pi)^{2}+3\,\Delta^{2}\,\delta\pi+\Delta^{3}=0%
+\text{,}" display="block"><mrow><mrow><mrow><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>π</mi><mn>3</mn></msup></mrow><mo>+</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi mathvariant="normal">Δ</mi><mo lspace="0.170em">⁢</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mi>δ</mi><mo>⁢</mo><mi>π</mi></mrow><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></mrow><mo>+</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><msup><mi mathvariant="normal">Δ</mi><mn>2</mn></msup><mo>⁢</mo><mi>δ</mi><mo>⁢</mo><mi>π</mi></mrow><mo>+</mo><msup><mi mathvariant="normal">Δ</mi><mn>3</mn></msup></mrow><mo>=</mo><mrow><mn>0</mn><mo>⁢</mo><mtext>,</mtext></mrow></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right"><span class="ltx_text" style="color:#000000;">(<span class="ltx_text" style="color:#B80000;">5</span>)</span></span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">which can be solved by completing the cube like,</p>
+<table id="S2.E6" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E6.m1" class="ltx_Math" alttext="a\,\pi^{3}-(\delta\pi)^{3}+(\delta\pi)^{3}+3\,\Delta\,(\delta\pi)^{2}+3\,%
+\Delta^{2}\,\delta\pi+\Delta^{3}=0\text{,}" display="block"><mrow><mrow><mrow><mrow><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>π</mi><mn>3</mn></msup></mrow><mo>−</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mi>δ</mi><mo>⁢</mo><mi>π</mi></mrow><mo stretchy="false">)</mo></mrow><mn>3</mn></msup></mrow><mo>+</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mi>δ</mi><mo>⁢</mo><mi>π</mi></mrow><mo stretchy="false">)</mo></mrow><mn>3</mn></msup><mo>+</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi mathvariant="normal">Δ</mi><mo lspace="0.170em">⁢</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mi>δ</mi><mo>⁢</mo><mi>π</mi></mrow><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></mrow><mo>+</mo><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><msup><mi mathvariant="normal">Δ</mi><mn>2</mn></msup><mo>⁢</mo><mi>δ</mi><mo>⁢</mo><mi>π</mi></mrow><mo>+</mo><msup><mi mathvariant="normal">Δ</mi><mn>3</mn></msup></mrow><mo>=</mo><mrow><mn>0</mn><mo>⁢</mo><mtext>,</mtext></mrow></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right"><span class="ltx_text" style="color:#000000;">(<span class="ltx_text" style="color:#B80000;">6</span>)</span></span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">and from there the equation can be further rearranged:</p>
+<table id="S2.E7" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E7.m1" class="ltx_Math" alttext="(\delta\pi+\Delta)^{3}=-\pi^{3}(a-\delta^{3})" display="block"><mrow><msup><mrow><mo stretchy="false">(</mo><mrow><mrow><mi>δ</mi><mo>⁢</mo><mi>π</mi></mrow><mo>+</mo><mi mathvariant="normal">Δ</mi></mrow><mo stretchy="false">)</mo></mrow><mn>3</mn></msup><mo>=</mo><mrow><mo>−</mo><mrow><msup><mi>π</mi><mn>3</mn></msup><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>a</mi><mo>−</mo><msup><mi>δ</mi><mn>3</mn></msup></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right"><span class="ltx_text" style="color:#000000;">(<span class="ltx_text" style="color:#B80000;">7</span>)</span></span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Finally, the final formula holds for any combination of the two possible values of <math id="S2.p3.m4" class="ltx_Math" alttext="m" display="inline"><mi>m</mi></math> and of the three possible cubic roots of one. That is, the solution of equation (<span class="ltx_text" style="color:#B80000;">
+<a href="#S2.E1" title="In 2 The Solution ‣ A New Method for the Cubic Polynomial Equation" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a></span>) is simply,</p>
+<table id="S2.E8" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.E8.m1" class="ltx_Math" alttext="\pi\left(\delta+\xi\sqrt[3]{a-\delta^{3}}\right)=-\Delta\Rightarrow x=m-\frac{%
+\Delta}{\delta+\xi\sqrt[3]{a-\delta^{3}}}\text{, where }\xi^{3}=1" display="block"><mrow><mrow><mi>π</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>δ</mi><mo>+</mo><mrow><mi>ξ</mi><mo>⁢</mo><mroot><mrow><mi>a</mi><mo>−</mo><msup><mi>δ</mi><mn>3</mn></msup></mrow><mn>3</mn></mroot></mrow></mrow><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">Δ</mi></mrow><mo stretchy="false">⇒</mo><mi>x</mi><mo>=</mo><mrow><mi>m</mi><mo>−</mo><mrow><mfrac><mi mathvariant="normal">Δ</mi><mrow><mi>δ</mi><mo>+</mo><mrow><mi>ξ</mi><mo>⁢</mo><mroot><mrow><mi>a</mi><mo>−</mo><msup><mi>δ</mi><mn>3</mn></msup></mrow><mn>3</mn></mroot></mrow></mrow></mfrac><mo>⁢</mo><mtext>, where </mtext><mo>⁢</mo><msup><mi>ξ</mi><mn>3</mn></msup></mrow></mrow><mo>=</mo><mn>1</mn></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right"><span class="ltx_text" style="color:#000000;">(<span class="ltx_text" style="color:#B80000;">8</span>)</span></span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">The values of <math id="S2.p3.m5" class="ltx_Math" alttext="\Delta" display="inline"><mi mathvariant="normal">Δ</mi></math> and <math id="S2.p3.m6" class="ltx_Math" alttext="\delta" display="inline"><mi>δ</mi></math> in turn are a function of either value of <math id="S2.p3.m7" class="ltx_Math" alttext="m" display="inline"><mi>m</mi></math>:</p>
+<table id="S2.Ex2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S2.Ex2.m1" class="ltx_Math" alttext="\begin{cases}\Delta=\sqrt[3]{a\,m^{3}+b\,m^{2}+c\,m+d}\\[10.0pt]
+\delta=\dfrac{3\,a\,m^{2}+2\,b\,m+c}{3\,\Delta^{2}}\par\end{cases}" display="block"><mrow><mo>{</mo><mtable columnspacing="5pt" displaystyle="true" rowspacing="0pt"><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><mi mathvariant="normal">Δ</mi><mo>=</mo><mroot><mrow><mrow><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>3</mn></msup></mrow><mo>+</mo><mrow><mi>b</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>2</mn></msup></mrow><mo>+</mo><mrow><mi>c</mi><mo lspace="0.170em">⁢</mo><mi>m</mi></mrow><mo>+</mo><mi>d</mi></mrow><mn>3</mn></mroot></mrow></mtd><mtd></mtd></mtr><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><mi>δ</mi><mo>=</mo><mfrac><mrow><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><mi>a</mi><mo lspace="0.170em">⁢</mo><msup><mi>m</mi><mn>2</mn></msup></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0.170em">⁢</mo><mi>b</mi><mo lspace="0.170em">⁢</mo><mi>m</mi></mrow><mo>+</mo><mi>c</mi></mrow><mrow><mn>3</mn><mo lspace="0.170em">⁢</mo><msup><mi mathvariant="normal">Δ</mi><mn>2</mn></msup></mrow></mfrac></mrow></mtd><mtd></mtd></mtr></mtable></mrow></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Note equation (<span class="ltx_text" style="color:#B80000;">
+<a href="#S2.E8" title="In 2 The Solution ‣ A New Method for the Cubic Polynomial Equation" class="ltx_ref"><span class="ltx_text ltx_ref_tag">8</span></a></span>) allows <math id="S2.p3.m8" class="ltx_Math" alttext="a" display="inline"><mi>a</mi></math> to be zero generally (one just needs to choose <math id="S2.p3.m9" class="ltx_Math" alttext="\xi\neq 1" display="inline"><mrow><mi>ξ</mi><mo>≠</mo><mn>1</mn></mrow></math>). That is, this formula is more general than Bhaskara’s or Cardano’s, where <math id="S2.p3.m10" class="ltx_Math" alttext="a" display="inline"><mi>a</mi></math> can not be zero. In fact, if <math id="S2.p3.m11" class="ltx_Math" alttext="a" display="inline"><mi>a</mi></math> is zero, it can be demonstrated that (<span class="ltx_text" style="color:#B80000;">
+<a href="#S2.E8" title="In 2 The Solution ‣ A New Method for the Cubic Polynomial Equation" class="ltx_ref"><span class="ltx_text ltx_ref_tag">8</span></a></span>) reduces to Bhaskara’s formula.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul class="ltx_biblist">
+<li id="bib.bib1" class="ltx_bibitem">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">1</span>
+<span class="ltx_bibblock"> Katz, Victor <span class="ltx_text ltx_font_italic">A History of Mathematics, Boston: Addison Wesley. p. 220</span> 2004 ISBN 9780321016188.
+
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Sun Jun  7 22:57:32 2026 by <a href="http://dlmf.nist.gov/LaTeXML/" class="ltx_LaTeXML_logo"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="Mascot Sammy"></a>
+</div></footer>
+</div>
+</body>
+</html>
