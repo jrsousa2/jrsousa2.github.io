@@ -37,5 +37,6 @@ IF "%~1"=="" (
  echo.
  git status
  cd %CURDIR%
+ echo.
  
 
