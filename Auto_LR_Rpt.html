@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SAS Program</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/sas.min.js"></script>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+pre {
+    border: 1px solid #ccc;
+    padding: 12px;
+    overflow-x: auto;
+}
+
+code {
+    font-size: 14px;
+}
+
+.top-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 800px;
+}
+
+.top-images img {
+    width: 100%;
+    height: auto;
+}
+
+/* SETS SIZE OF THE TITLE  */
+h3 {
+    font-size: 24px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h3>SAS stored process to create auto loss ratio reports</h3>
+
+<div class="top-images">
+    <img src="Auto LR Rpt/Auto LR rpt-Yearly-pic1.png" alt="">
+    <img src="Auto LR Rpt/Auto LR rpt-Yearly-pic2.png" alt="">
+    <img src="Auto LR Rpt/Auto LR rpt-Yearly-pic3.png" alt="">
+    <img src="Auto LR Rpt/Auto LR rpt-Yearly-pic4.png" alt="">
+    <img src="Auto LR Rpt/Auto LR rpt-Yearly-pic5.png" alt="">
+    <img src="Auto LR Rpt/Auto LR rpt-Yearly-pic6.png" alt="">
+    <img src="Auto LR Rpt/Auto LR rpt-Yearly-pic7.png" alt="">
+</div>
+
+<!-- BEGINNING OF SAS CODE -->
+<pre><code class="language-sas">
+    /********************* STORED PROCESS MACRO CODE ***********************/
+    options nosource nosource2 nomprint nomlogic nomacrogen nosymbolgen notes=0;
+    /* MACRO */
+    %macro auto_year_indic;
+    %local filter_variav;
+    /* appends the username to the filename */
+    %let default_lib=comuser;
+    
+    data _null_;
+    lib=scan("&outfile",1,".");
+    if lowcase(lib)="&default_lib"
+       then call symput("assign",1);
+       else call symput("assign",0);
+    name=scan("&outfile",2,".");
+    newname=compress(lib||"."||"&_metauser"||"_"||name);
+    call symput("outfile",compress(newname));
+    run;
+    
+    %if &assign
+    %then %do;
+    libname &default_lib Base "/sasdata/comuser";
+    %end;
+    
+    /* tests if the provided outfile is error free */
+    data &outfile;
+    run;
+    
+    /* if no error with specified output file do */
+    %if &syserr=0
+    %then %do;
+    proc sql;
+    drop table &outfile;
+    quit;
+    
+    %lib_actcom;
+    
+    /* this part handles specifically the creation of the multiple filters */
+    %let name_filter1=company_code;
+    %let name_filter2=Driving_Record;
+    %let name_filter3=RISK_PROVINCE;
+    %let name_filter4=PRODUCT;
+    %let name_filter5=Coverage;
+    %let name_filter6=SS_SYUS_BRANCH;/* exception, #1 */
+    %let name_filter7=OFFICE_CODE;
+    %let name_filter8=Territory_RTM;
+    %let name_filter9=Veh_Class;
+    %let name_filter10=Risk_Number;
+    %let name_filter11=Coll_RG;/* exception, #1 */
+    %let name_filter12=Territory;/* exception, #1 */
+    
+    %let selec=%str(Pol_Num Transaction_Code);
+    
+    %let filter_comp=1;
+    %do i=1 %to 12;
+    /* name of the filter criteria variable */
+    %let variav=&&name_filter&i;
+    %let filter_variav=&variav;
+    
+    /* exceptions for AUTO */
+    data _null_;
+    select ("&variav");
+    /* SS_SYUS_BRANCH */
+    when ("SS_SYUS_BRANCH") 
+    do;
+     call symput("filter_variav","SS_SYUS_BRANCH1");
+     call symput("actual_var","SS_SYUS_BRANCH1");
+    end;
+    /* Coll_RG */
+    when ("Coll_RG") 
+    do;
+     call symput("filter_variav","compress(Coll_RG)");
+     call symput("actual_var","Coll_RG");
+    end;
+    /* Territory */
+    when ("Territory") 
+    do;
+     call symput("filter_variav","compress(Territory)");
+     call symput("actual_var","Territory");
+    end;
+    otherwise
+    do;
+     call symput("filter_variav","&variav");
+     call symput("actual_var","&variav");
+    end;
+    end;
+    run;
+    
+    %if &&&variav.0=
+    %then %do;
+             %let &variav.0=1;
+             %let &variav.1=&&&variav;
+          %end;
+    
+    %if &&&variav.0>0
+        %then %do;
+                 %let filter="&&&variav.1";
+                 %let selec=%str(&selec &actual_var);
+                 /*%put ### i=&i variav=&variav actual_var=&actual_var;*/
+              %end;
+        %else %let filter="";
+    
+    %do j=2 %to &&&variav.0;
+    %let filter=%str(&filter,"&&&variav&j");
+    %end;
+    %if &filter ne ""
+        %then %let filter_comp=%str(&filter_comp and &filter_variav in (&filter));
+    /* prints the filter step by step */
+    /*%put ### i=&i &filter_comp;*/
+    %end;
+    
+    /* handles the policy number filter, if any */
+    %if &Pol_Num ne all
+    %then %let filter_comp=%str(&filter_comp and Pol_Num="&Pol_Num");
+    
+    %put ### Filter=&filter_comp;
+    
+    proc contents data=actcom.PREMIUM_AUTO out=contents(keep=name) noprint;
+    run;
+    
+    /**********************************************************/
+    /**********************************************************/
+    /**********************************************************/
+    /**********************************************************/
+    %if %symexist(pick_var0)
+        %then %do;
+                  %if &pick_var0=
+                  %then %if "&pick_var" ne ""
+                             %then %let pick_var0=1;
+                             %else %let pick_var0=0;
+              %end;
+        %else %if "&pick_var" ne ""
+                   %then %let pick_var0=1;
+                   %else %let pick_var0=0;
+    
+    %if &pick_var0=1
+        %then %let pick_var1=&pick_var;
+    %put ### pick_var0=&pick_var0;
+    %put ### pick_var1=&pick_var1;
+    
+    /* THIS PART INCLUDES THE VARIABLES PICKED SECONDLY */
+    %if %symexist(sec_pick_var0)
+        %then %do;
+                  %if &sec_pick_var0=
+                  %then %if "&sec_pick_var" ne ""
+                             %then %let sec_pick_var0=1;
+                             %else %let sec_pick_var0=0;
+              %end;
+        %else %if "&sec_pick_var" ne ""
+                   %then %let sec_pick_var0=1;
+                   %else %let sec_pick_var0=0;
+    
+    %if &sec_pick_var0=1
+        %then %let sec_pick_var1=&sec_pick_var;
+    %put ### sec_pick_var0=&sec_pick_var0;
+    %put ### sec_pick_var1=&sec_pick_var1;
+    
+    %do j=1 %to &sec_pick_var0;
+    %let index=%eval(&pick_var0+&j);
+    %put ### SECOND VAR LIST j=&j index=&index;
+    %let pick_var&index=&&sec_pick_var&j;
+    %put ### j=&j pick_var&index=&&sec_pick_var&j;
+    %end;
+    
+    %let pick_var0=%eval(&pick_var0+&sec_pick_var0);
+    %put ### NEW pick_var0=&pick_var0;
+    /**********************************************************/
+    /**********************************************************/
+    /**********************************************************/
+    /**********************************************************/
+    
+    /* this part drops variables that were picked duplicately from the variables picklist */
+    /* by setting them to 'none' if they're duplicate                                     */
+    %let group_selec=&pick_var1;
+    %do i=2 %to &pick_var0;
+    %let group_selec=%str(&group_selec,&&pick_var&i);
+    %end;
+    %put ### Picked variables=&group_selec;
+    
+    /* creates the variable list to select*/
+    %do i=1 %to &pick_var0;
+    data _null_;
+    text=compress(lowcase("&selec"));
+    search=index(text,compress(lowcase(" &&pick_var&i ")));
+    if search ne 0
+       then call symput("pick_var&i","none");
+    run;
+    
+    proc sql noprint;
+    select count(*)>0 into :exist
+    from contents
+    where lowcase("&&pick_var&i") in (select lowcase(name) from contents);
+    quit;
+    
+    %if "&&pick_var&i" ne "none" and &exist
+        %then %let selec=%str(&selec &&pick_var&i);
+    %end;
+    
+    %let selec=%str(&selec effective_date transaction_date expiry_date written_exposure written_premium);
+    proc sql;
+    drop table contents;
+    quit;
+    
+    %put ### selec=&selec;
+    
+    /* CREATE THE PERIOD PARAMETERS */
+    data _null_;
+    start=input("&start",yymmn6.0);
+    call symput("start_date",start);
+    end=input("&end",yymmn6.0);
+    end=intnx('month',end,1)-1;
+    call symput("end_date",end);
+    claims_as_of=input("&claims_as_of",yymmn6.0);
+    call symput("claims_as_of_date",claims_as_of);
+    format start end claims_as_of ddmmyy10.;
+    run;
+    
+    /*CREATES A LABEL ON THE YEAR VARIABLE TO INFORM THE CRITERIA AND 
+    CUT-OFF DATES*/
+    %let label=%sysfunc(compress(%superq(filter_comp),%str(%"))); 
+    %let label=criteria=%sysfunc(substr(&label,7)) start=&start end=&end claims_as_of=&claims_as_of;
+    %put Label=&label;
+    
+    /**********************************************************************/
+    /******************************* PREMIUMS *****************************/
+    /**********************************************************************/
+    %put ### RUNNING THE FIRST PREMIUM PART...;
+    data premium;
+    retain &selec;
+    set actcom.PREMIUM_AUTO(keep=&selec Num_Vehicles Veh_Class);
+    where &filter_comp and max(transaction_date,&start_date)<=min(expiry_date,&end_date) and Transaction_Code not in ("3","7");
+    
+    if transaction_date ne . and expiry_date ne . and (expiry_date-transaction_date) ne 0 
+    then do;
+    full_term_wp=written_premium*(expiry_date-effective_date)/(expiry_date-transaction_date);
+    
+    /* COMPUTE THE NUMBER OF MONTHS THAT FALL ONTO THE SELECTED MONTH RANGE */
+    begin_mth=max(transaction_date,&start_date);
+    end_mth=min(expiry_date,&end_date);
+    n_month=(year(end_mth)-year(begin_mth))*12+month(end_mth)-month(begin_mth)+1;
+    month=.;
+    next_month=.;
+    begin_day=.;
+    end_day=.;
+    days=.;
+    sign=SIGN(written_premium);
+    
+    /* these vars are placed here just so they show up orderly on the table,*/
+    /* not needed though */
+    i=.;
+    length earned_month $6.;
+    earned_month="";
+    earned_exposure=.;
+    earned_premium=.;
+    
+    do i=0 to n_month-1;
+    month=intnx('month',begin_mth,i);
+    next_month=intnx('month',begin_mth,i+1)-1;
+    earned_month=put(month,yymmn6.); 
+    
+    /* restrict the calculation to the months that fall onto the set interval */
+    if &start<=earned_month<=&end
+    then do;
+    begin_day=max(month,transaction_date);
+    end_day=min(next_month,expiry_date);
+    days=end_day-begin_day+1;
+    
+    earned_exposure=Num_Vehicles*ROUND(days/365.25*sign,.001);
+    earned_premium=ROUND(full_term_wp*round(days/(expiry_date-effective_date),.001),.01);
+    
+    IF -0.001<earned_exposure<0.001
+       then earned_exposure = 0;
+    
+    IF -0.01<earned_premium<0.01
+       then earned_premium=0;
+    
+    if earned_premium ne . 
+    then do;
+    /* GENERATES ONE RECORD FOR EACH MONTH */
+    if put(transaction_date,yymmn6.0) ne earned_month
+    then do;
+    written_exposure=0;
+    written_premium=0;
+    end;
+    else written_exposure=Num_Vehicles*written_exposure;
+    
+    if Veh_Class in ("05","06")
+    then do;
+          written_exposure=0;
+          earned_exposure=0;
+    end;
+    
+    output;
+    /* END OF RECORD GENERATION FOR EACH MONTH*/
+    end;
+    
+    end;
+    end;
+    end;
+    
+    format month next_month begin_day end_day begin_mth end_mth ddmmyy10.;
+    /*drop month next_month begin_day end_day begin_mth end_mth;*/
+    format written_premium full_term_wp 12.2;
+    drop sign;
+    run;
+    /* END MONTH EARNED */
+    
+    %put ### RUNNING THE SECOND PREMIUM PART;
+    %put ### group_selec=&group_selec;
+    proc sql;
+    create table premium2 as
+    select input(substr(earned_month,1,4),12.) as Year, &group_selec, 
+    sum(written_exposure) as written_exposure format=12.3,
+    sum(earned_exposure) as earned_exposure format=12.3,
+    sum(written_premium) as written_premium format=12.0,
+    sum(earned_premium) as earned_premium format=12.0
+    from premium
+    group by Year, &group_selec
+    order by Year, &group_selec;
+    quit;
+    
+    /* THIS PART HANDLES THE CLAIMS TABLE CREATION */
+    %put ### RUNNING THE CLAIMS PART...;
+    proc sql;
+    create table claims as
+    select year(CR_LOSS_DATE) as Year, 
+    /* variables that determine the claim count and capping */
+    /* TOU=TYPE OF USE */
+    CR_SYUS_COMPANY,LINE,CLAIMSYM,CR_CLAIM_NO,CR_LOSS_DATE,CR_OCCURANCE,
+    CR_BC0_CLAIMANT,TOU,CR_AUTO_DRIVER_REC_SECA,cr_fire_class,cr_coverage_cd,
+    case 
+    when (KOL IN ("41","83","84","85","86")) then "41"
+    when (KOL IN ("61","93","94","95","96")) then "61"
+    when (KOL IN ("49","87")) then "49"
+    when (KOL IN ("69","97")) then "69"
+    when (KOL IN ("80","81","82")) then "44"
+    when (KOL IN ("90","91","92")) then "64"
+    /*FOLLOWING LINE TO AGGREGATE DC KOLS;*/
+    when (KOL IN ("12","14","16","17","18","19")) then "12"
+    /*FOLLOWING LINE TO AGGREGATE COMP KOLS;*/
+    when (KOL IN ("21","22","27")) then "27"
+    else KOL end as KOL, 
+    /* end of vars */
+    &group_selec, 
+    1 as claim_cnt,
+    sum(p_amt+e_amt+s_amt+(cr_generate_trans="0" and 
+    year(cr_transaction_date)=year(&claims_as_of_date) and 
+    month(cr_transaction_date)=month(&claims_as_of_date))*reserve) as gross_incurred format=12.0,
+    case when calculated gross_incurred>&caploss then &caploss else calculated gross_incurred end as caploss format=12.0,
+    case when calculated gross_incurred>&caploss then 1 else 0 end as capcount,
+    sum(p_amt) as paid
+    from actcom.CLAIM_POLICY_AUTO
+    where &filter_comp and 
+    &start_date<=CR_LOSS_DATE<=&end_date and 
+    product_major_line="A" and
+    cr_transaction_date<=intnx('month',&claims_as_of_date,1)-1 and
+    rectype=1
+    group by CR_SYUS_COMPANY,LINE,CLAIMSYM,CR_CLAIM_NO,CR_LOSS_DATE,CR_OCCURANCE,
+    CR_BC0_CLAIMANT,TOU,CR_AUTO_DRIVER_REC_SECA,cr_fire_class,cr_coverage_cd,calculated KOL;
+    quit;
+    
+    proc sort data=claims nodupkey;
+    by CR_SYUS_COMPANY LINE CLAIMSYM CR_CLAIM_NO CR_LOSS_DATE CR_OCCURANCE 
+    CR_BC0_CLAIMANT TOU CR_AUTO_DRIVER_REC_SECA cr_fire_class cr_coverage_cd kol;
+    run;
+    
+    proc sql;
+    create table claims2 as
+    select Year, &group_selec, 
+    sum(claim_cnt) as claim_cnt,
+    sum(paid) as paid,
+    sum(gross_incurred) as gross_incurred,
+    sum(capcount) as capcount,
+    sum(caploss) as caploss
+    from claims
+    group by Year, &group_selec
+    order by Year, &group_selec;
+    quit;
+    
+    %let group_selec_nocomma=%sysfunc(tranwrd(&group_selec,%str(,),%str( )));
+    data &outfile(label="&label");
+    merge premium2 claims2;
+    by year &group_selec_nocomma;
+    if paid=. then paid=0;
+    if claim_cnt=. then claim_cnt=0;
+    if gross_incurred=. then gross_incurred=0;
+    if capcount=. then capcount=0;
+    if caploss=. then caploss=0;
+    format 
+    written_exposure earned_exposure 12.2 
+    written_premium earned_premium gross_incurred caploss paid 12.0;
+    run;
+    
+    /*proc sql;
+    drop table premium, premium2, premium3, claims, claims2;
+    quit;*/
+    %end;
+    /* User specified an invalid output filename or unaccessible library */
+    %else %do;
+    /*proc sql;
+    drop table &outfile;
+    quit;*/
+    %put ### ERROR, INVALID OUTPUT FILE: %trim(&outfile);
+    %end;
+    options source source2 notes=1;
+    %mend;
+    
+    * %auto_year_indic;
+    
+    /* VARIABLES to pick and choose */
+    %let pick_var0=3;
+    %let pick_var1=RISK_PROVINCE;
+    %let pick_var2=company_code;
+    %let pick_var3=product;/*Risk_Number*/
+    %let pick_var4=coverage;
+    %let pick_var5=Num_Vehicles;
+    %let pick_var6=Veh_Class;
+    %let pick_var=&pick_var1;
+    /* SECOND LIST OF VARIABLES to pick and choose */
+    %let sec_pick_var0=0;
+    %let sec_pick_var1=Pol_Num;
+    %let sec_pick_var2=product;
+    %let sec_pick_var=&pick_var1;
+    /* 1. company_number */
+    %let company_code0=1;
+    %let company_code1=04;
+    %let company_code2=10;
+    %let company_code=&company_code1;
+    /* 2. clear record */
+    %let Driving_Record0=0;
+    %let Driving_Record1=9;
+    %let Driving_Record2=5;
+    %let Driving_Record=&Driving_Record1;
+    /* 3. risk_province */
+    %let risk_province0=1;
+    %let risk_province1=ON;
+    %let risk_province2=AB;
+    %let risk_province=&risk_province1;
+    /* 4. Product */
+    %let PRODUCT0=1;
+    %let PRODUCT1=PERS AUTO; /* COMM VEH*/
+    %let PRODUCT2=FLEET COMM;
+    %let PRODUCT=&PRODUCT1;
+    /* 5. product, AUTO NAO TEM */
+    %let Coverage0=0;
+    %let Coverage1=AB;
+    %let Coverage2=TPL;
+    %let Coverage=&Coverage1;
+    /* 6. branch */
+    %let SS_SYUS_BRANCH0=0;
+    %let SS_SYUS_BRANCH1=17;
+    %let SS_SYUS_BRANCH2=01;
+    %let SS_SYUS_BRANCH=&SS_SYUS_BRANCH1;
+    /* 7. office code */
+    %let OFFICE_CODE0=0;
+    %let OFFICE_CODE1=12U;
+    %let OFFICE_CODE2=12L;
+    %let OFFICE_CODE=&OFFICE_CODE1;
+    /* 8. vehicle territory */
+    %let Territory_RTM0=0;
+    %let Territory_RTM1=3;
+    %let Territory_RTM2=1;
+    %let Territory_RTM=&Territory_RTM1;
+    /* 9. Class of use */
+    %let Veh_Class0=17;
+    %let Veh_Class1=01;
+    %let Veh_Class2=02;
+    %let Veh_Class3=03;
+    %let Veh_Class4=05;
+    %let Veh_Class5=06;
+    %let Veh_Class6=07;
+    %let Veh_Class7=08;
+    %let Veh_Class8=09;
+    %let Veh_Class9=10;
+    %let Veh_Class10=11;
+    %let Veh_Class11=12;
+    %let Veh_Class12=13;
+    %let Veh_Class13=18;
+    %let Veh_Class14=19;
+    %let Veh_Class15=21;
+    %let Veh_Class16=22;
+    %let Veh_Class17=23;
+    %let Veh_Class=&Veh_Class1;
+    /* 10. Risk number */
+    %let Risk_Number0=0;
+    %let Risk_Number1=001;
+    %let Risk_Number2=002;
+    %let Risk_Number=&Risk_Number1;
+    /* 11. Property industry code, AUTO NAO TEM */
+    %let Coll_RG0=0;
+    %let Coll_RG1=11;
+    %let Coll_RG2=12;
+    %let Coll_RG=&Coll_RG1;
+    /* 12. Property industry code, AUTO NAO TEM */
+    %let Territory0=0;
+    %let Territory1=0;
+    %let Territory2=3;
+    %let Territory=&Territory1;
+    /* 13. Policy number: 40159797 41021180 */
+    %let Pol_Num=all;
+    /* cut-off dates */
+    %let start=200501;
+    %let end=200512;
+    %let caploss=100000;
+    %let claims_as_of=200912;
+    /* file name */
+    %let _METAUSER=jsousa;
+    %let outfile=work.test;
+    
+    %auto_year_indic;
+<!-- END OF SAS CODE -->
+</code></pre>
+
+
+<script>
+hljs.highlightAll();
+</script>
+
+</body>
+</html>
