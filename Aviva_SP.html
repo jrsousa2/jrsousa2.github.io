@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SAS Program</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/sas.min.js"></script>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+pre {
+    border: 1px solid #ccc;
+    padding: 12px;
+    overflow-x: auto;
+}
+
+code {
+    font-size: 14px;
+}
+
+.top-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 800px;
+}
+
+.top-images img {
+    width: 100%;
+    height: auto;
+}
+</style>
+</head>
+
+<body>
+
+<h3>SAS stored process to pull auto in-force policies</h3>
+
+<div class="top-images">
+    <img src="IF-Auto-PL-pic1.png" alt="">
+    <img src="IF-Auto-PL-pic2.png" alt="">
+    <img src="IF-Auto-PL-pic3.png" alt="">
+    <img src="IF-Auto-PL-pic4.png" alt="">
+</div>
+
+<!-- BEGINNING OF SAS CODE -->
+
+<pre><code class="language-sas">
+/********************* STORED PROCESS MACRO CODE ***********************/
+/* this line tells EG to not display some specific log information */
+options nosource nosource2 nomprint nomlogic nomacrogen nosymbolgen notes=0;
+
+/* this assigns the actper library when EG starts a new instance to */
+/* run the stored process at, for actper won't be pre-assigned then */
+%lib_actper;
+
+%macro auto_inforce();
+/* this snippet is aimed at capturing the start time of the stored process execution */
+/* it will be displayed on the log after the execution finishes */
+data _null_;
+h1=time();
+time1=put(h1,time8.0);
+call symput("time1",time1);
+call symput("h1",h1);
+run;
+
+/* appends the username to the filename */
+data _null_;
+lib=scan("&outfile",1,".");
+name=scan("&outfile",2,".");
+newname=compress(lib||"."||"&_metauser"||"_"||name);
+call symput("outfile",compress(newname));
+run;
+
+/* checks if the provided outfile is error free */
+data &outfile;
+run;
+
+/* if no error with specified output file do */
+%if &syserr=0
+%then %do;
+/* drops the test table so that the final table is deletable*/
+proc sql;
+drop table &outfile;
+quit;
+
+proc contents data=actper.MERGED_TBL_WP_CLMS_CO1_AUTO out=contents(keep=name) noprint;
+run;
+
+%let dir=actper;
+/* this is a pre-select list of variables that the stored process will always output   */
+/* the grouping scheme is: risk_province, company_number, policy_nbr, RISK_NBR,        */
+/* COVER_CD, effective_date_of_policy and driver_class                                 */
+/* the various records are grouped by as per this scheme and the full term premium of  */
+/* all records that meet the criteria will be summed over these groups, no exceptions  */
+/* the user can choose to not display the driver_class, in this case that breakdown is */
+/* appropriately removed                                                               */
+data _null_;
+selec="a.risk_province,a.company_number,a.product,a.policy_nbr,a.RISK_NBR,a.COVER_CD,a.effective_date_of_policy,a.transaction_date,
+case when a.driver_class in ('05','06') then 'occas.' else 'princ.' end as driver_ind,a.driver_class";
+group_vars="a.risk_province,a.company_number,a.policy_nbr,a.RISK_NBR,a.COVER_CD,a.effective_date_of_policy,driver_ind";
+group_vars_no_qual="risk_province,company_number,policy_nbr,RISK_NBR,COVER_CD,effective_date_of_policy,driver_ind desc";
+group_vars_no_comma="risk_province company_number policy_nbr RISK_NBR COVER_CD effective_date_of_policy driver_ind";
+call symput("selec",compbl(selec));
+call symput("group_vars",compbl(group_vars));
+call symput("group_vars_no_qual",compbl(group_vars_no_qual));
+call symput("group_vars_no_comma",compbl(group_vars_no_comma));
+run;
+
+/*
+%put ### "&selec";
+%put ### "&group_vars";
+%put ### "&group_vars_no_qual";
+%put ### "&group_vars_no_comma";
+%put ### "&selec";
+*/
+
+/**********************************************************/
+/**********************************************************/
+/**********************************************************/
+/********** HANDLES THE TWO VARIABLES PICK-LISTS ***********/
+%if %symexist(pick_var0)
+    %then %do;
+              %if &pick_var0=
+	          %then %if "&pick_var" ne ""
+                         %then %let pick_var0=1;
+                         %else %let pick_var0=0;
+		  %end;
+	%else %if "&pick_var" ne ""
+               %then %let pick_var0=1;
+	           %else %let pick_var0=0;
+
+%if &pick_var0=1
+    %then %let pick_var1=&pick_var;
+%put ### pick_var0=&pick_var0;
+%put ### pick_var1=&pick_var1;
+
+/* THIS PART INCLUDES THE VARIABLES PICKED SECONDLY */
+%if %symexist(sec_pick_var0)
+    %then %do;
+              %if &sec_pick_var0=
+	          %then %if "&sec_pick_var" ne ""
+                         %then %let sec_pick_var0=1;
+                         %else %let sec_pick_var0=0;
+		  %end;
+	%else %if "&sec_pick_var" ne ""
+               %then %let sec_pick_var0=1;
+	           %else %let sec_pick_var0=0;
+
+%if &sec_pick_var0=1
+    %then %let sec_pick_var1=&sec_pick_var;
+%put ### sec_pick_var0=&sec_pick_var0;
+%put ### sec_pick_var1=&sec_pick_var1;
+
+%do j=1 %to &sec_pick_var0;
+%let index=%eval(&pick_var0+&j);
+%put ### SECOND VAR LIST j=&j index=&index;
+%let pick_var&index=&&sec_pick_var&j;
+%put ### j=&j pick_var&index=&&sec_pick_var&j;
+%end;
+
+%let pick_var0=%eval(&pick_var0+&sec_pick_var0);
+%put ### NEW pick_var0=&pick_var0;
+/**********************************************************/
+/**********************************************************/
+/**********************************************************/
+/**********************************************************/
+
+/* this part drops variables that were picked duplicately from the 50 variables picklist */
+/* by setting them to 'none' if they're duplicate                                        */
+%do i=1 %to &pick_var0;
+data _null_;
+text=compress(lowcase("&selec"));
+search=index(text,compress(lowcase("a.&&pick_var&i,")));
+if search ne 0
+   then call symput("pick_var&i","none");
+run;
+
+proc sql noprint;
+select count(*)>0 into :exist
+from contents
+where lowcase("&&pick_var&i") in (select lowcase(name) from contents);
+quit;
+
+%if "&&pick_var&i" ne "none" and &exist
+    %then %let selec=%str(&selec,a.&&pick_var&i);
+%end;
+
+/***************************************************************************/
+/***************************************************************************/
+/* NEW FILTER CRITERIA */
+/* this part handles specifically the creation of the multiple filters */
+/* this part handles the various filter criteria that can be created   */
+/* through the combination of 6 possible filters: province, company,   */
+/* branch, policy, risk and cover                                      */
+%let name_filter1=risk_province;
+%let name_filter2=company_number;
+%let name_filter3=branch;
+%let name_filter4=RISK_NBR;
+%let name_filter5=COVER_CD;
+%let name_filter6=driver_ind;
+
+%let filter_comp=1;
+%do i=1 %to 6;
+/* name of the filter criteria variable */
+%let variav=&&name_filter&i;
+%let filter_variav=&variav;
+
+%if &&&variav.0= 
+%then %do;
+         %let &variav.0=1;
+		 %let &variav.1=&&&variav;
+      %end;
+
+%if &&&variav.0>0
+    %then %let filter="&&&variav.1";
+	%else %let filter="";
+
+%do j=2 %to &&&variav.0;
+%let filter=%str(&filter,"&&&variav&j");
+%end;
+%if &filter ne ""
+    %then %if &i=6
+              %then %let filter_comp=%str(&filter_comp and calculated &filter_variav in (&filter));
+	          %else %let filter_comp=%str(&filter_comp and a.&filter_variav in (&filter));
+/* prints the filter step by step */
+/*%put ### i=&i &filter_comp;*/
+%end;
+
+/* handles the policy number filter, if any */
+%if &policy_nbr ne all
+%then %let filter_comp=%str(&filter_comp and a.policy_nbr="&policy_nbr");
+
+%put ### &filter_comp;
+/* NEW FILTER ENDS */
+/***************************************************************************/
+/***************************************************************************/
+
+/* this part adds the year_month filter picked by the user to the composite filter */
+%let filter_comp=%str(&filter_comp and year_month="&as_of_month");
+%put ### &filter_comp;
+
+
+/* the macro variables below are used to handle the 6 different merged   */
+/* tables, one for each company                                          */
+%let pref1=1;
+%let pref2=2;
+%let pref3=4;
+%let pref4=6;
+%let pref5=8;
+%let pref6=9;
+
+/* this part is intended to transform the string 'year/month' entered by the user into a SAS  */
+/* actual date field, which is a number. it will later be compared to the transaction and     */
+/* expiry dates, so that, transaction_date<=&year_mon<=policy_expiry_date                     */
+data _null_;
+year_mon=input("&as_of_month",yymmn6.0);
+year_mon=intnx("month",year_mon,1)-1;
+call symput("year_mon",year_mon);
+format year_mon ddmmyy10.;
+run;
+
+/* CREATES THE COMPANY FILTER TO BE USED RIGHT BELOW */
+%if &company_number0>0
+    %then %let comp_filter="&company_number1";
+	%else %let comp_filter="";
+
+%do j=2 %to &company_number0;
+%let comp_filter=%str(&comp_filter,"&&company_number&j");
+%end;
+/* Prints the company filter */
+/*%put ### Only the company filter: &comp_filter;*/
+
+/* obtain the output records for each of the 6 company merged tables separately, */
+/* later they are stacked together                                               */
+%do i=1 %to 6;
+%let suf=&&pref&i;
+
+/* sets the records to be read at 0, if a policy or company number was specified */
+data _null_;
+length nobs $6.;
+if (&company_number0 ne 6 and "&company_number1" ne "") or "&policy_nbr" ne "all"
+then do;
+if substr("&policy_nbr",1,1)="&suf" or "&suf" in (&comp_filter)
+   then nobs="";
+   else nobs="obs=0";
+end;
+else nobs="";
+call symput("nobs",nobs);
+run;
+
+/* this is where the SQL query starts                                                   */
+/* sums all of the full term premiums over a same grouping scheme, but only displays    */
+/* the 50 attributes picked by the user according to the most recent transaction date   */
+/* and sequence number                                                                  */
+/* no premiums are being skipped or ignored if they meet the criteria (that is,         */
+/* the record was inforced and transaction_date<=&year_mon<=policy_expiry_date),        */
+/* but the attributes output are those corresponding to the latest transaction date     */
+/* and sequence number                                                                  */
+/* &year_mon as year_month format=ddmmyy10., */
+proc sql;
+create table temp&i as
+select *
+from
+(
+/* start of the first select */
+select &selec,
+/* in the PQ, ftwp is set to 0 if it's negative and some of the grouped rows */
+/* has an endorsement '017'                                                  */
+case when a.risk_province="PQ" and sum(
+a.endorsement_1="017" or a.endorsement_2="017" or a.endorsement_3="017" or
+a.endorsement_4="017" or a.endorsement_5="017" or a.endorsement_6="017" or
+a.endorsement_7="017" or a.endorsement_8="017" or a.endorsement_9="017")>0
+and sum(full_term_wp)<0 then 0 
+else sum(full_term_wp) end as full_term_wp_%trim(&as_of_month) format=12.2
+from &dir..MERGED_TBL_WP_CLMS_CO&suf._AUTO(&nobs) a, 
+     &dir..risk_status b
+where
+b.risk_status="IF" and 
+a.policy_nbr=b.policy_nbr and 
+a.risk_nbr=b.risk_nbr and 
+/*calculated driver_ind="&driver_type" and */
+a.transaction_date<=&year_mon<=a.policy_expiry_date and &filter_comp
+group by &group_vars
+having max(a.transaction_date)=a.transaction_date)
+/* end of the first select */
+/* THIS IS DIFFERENT FROM THE PROMOTED STORED PROCESS: CHECK LATER */
+group by &group_vars
+having max(a.trans_seque_number)=a.trans_seque_number;
+quit;
+%end;
+
+/* this part stacks the 6 intermediate output files together as one */
+proc sql;
+create table temp7 as
+select * from temp1 union all
+select * from temp2 union all
+select * from temp3 union all
+select * from temp4 union all
+select * from temp5 union all
+select * from temp6;
+quit;
+
+/* eliminate the records that are duplicate */
+proc sort data=temp7 out=temp1 nodupkey;
+by &group_vars_no_comma;
+run;
+
+/* if there are more than one effective date for the same policy and group by, */
+/* pick only the latest one                                                    */
+proc sql;
+create table &outfile as
+select *
+from temp1
+group by risk_province, company_number, policy_nbr, RISK_NBR
+having effective_date_of_policy=max(effective_date_of_policy)
+order by &group_vars_no_qual;
+quit;
+
+proc sql;
+drop table temp1,temp2,temp3,temp4,temp5,temp6,temp7,contents;
+quit;
+
+/* this snippet is aimed at capturing the finish time of the stored process execution */
+data _null_;
+h2=time();
+time2=put(h2,time8.0);
+call symput("time2",time2);
+call symput("h2",h2);
+run;
+
+/* calculates the elapsed time between start and finish of the execution */
+data _null_;
+elapsed=&h2-&h1;
+time=put(elapsed,time8.0);
+call symput("time",time);
+run;
+
+/* displays the 'start time', 'end time' and 'elapsed' time on the output log     */
+/* may not work properly depending on the speed of the server, if it's overloaded */
+%put ### Start time: &time1;
+%put ### End time: &time2;
+%put ### Elapsed time: &time;
+%end;
+/* User specified an invalid output filename or unaccessible library */
+%else %put ### ERROR, INVALID OUTPUT FILE: %trim(&outfile);
+
+%mend;
+
+* %auto_inforce();
+
+/* VARIABLES */
+%let pick_var0=0;
+%let pick_var1=trans_seque_number;
+%let pick_var2=body_code;
+%let pick_var3=;
+%let pick_var4=;
+%let pick_var=&pick_var1;
+/* SECOND LIST OF VARIABLES to pick and choose */
+%let sec_pick_var0=1;
+%let sec_pick_var1=age;
+%let sec_pick_var2=aviva_stat_terr;
+%let sec_pick_var=&pick_var1;
+/* risk_province */
+%let risk_province0=0;
+%let risk_province1=ON;
+%let risk_province2=AB;
+%let risk_province=&risk_province1;
+/* company_number */
+%let company_number0=0;
+%let company_number1=1;
+%let company_number2=2;
+%let company_number3=4;
+%let company_number=&company_number1;
+/* branch */
+%let branch0=0;
+%let branch1=01;
+%let branch2=02;
+%let branch3=04;
+%let branch=&branch1;
+/* RISK_NBR */
+%let risk_nbr0=1;
+%let risk_nbr1=001;
+%let risk_nbr2=002;
+%let risk_nbr3=003;
+%let risk_nbr=&risk_nbr1;
+/* COVER_CD */
+%let cover_cd0=1;
+%let cover_cd1=COLL;
+%let cover_cd2=AP;
+%let cover_cd3=BI;
+%let cover_cd=&cover_cd1;
+/* Driver type driver_ind=('princ.','occas.') */
+%let driver_ind0=1;
+%let driver_ind1=%str(princ.);
+/* policy_nbr 9A90190185PLA 8A80026501PLA 4A43046225LPA 2A01113308PLA */
+%let policy_nbr=1A10254833PLA;
+/* as of month */
+%let as_of_month=201205;
+/* status */
+%let outfile=work.Test;
+%let _METAUSER=jsousa;
+
+%auto_inforce();
+
+
+</code></pre>
+
+<!-- END OF SAS CODE -->
+
+<script>
+hljs.highlightAll();
+</script>
+
+</body>
+</html>
