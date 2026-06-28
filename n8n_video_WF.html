@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POV Video Automation Workflow (n8n)</title>
+
+<style>
+body{
+    max-width:1000px;
+    margin:auto;
+    padding:30px;
+    font-family:Arial,Helvetica,sans-serif;
+    line-height:1.65;
+    color:#222;
+}
+
+h1,h2{
+    color:#184a8b;
+}
+
+code{
+    background:#f4f4f4;
+    padding:2px 5px;
+    border-radius:4px;
+}
+
+pre{
+    background:#f4f4f4;
+    padding:15px;
+    overflow:auto;
+    border-radius:6px;
+}
+
+.note{
+    background:#fff8d9;
+    border-left:5px solid #e6b800;
+    padding:15px;
+    margin:20px 0;
+}
+
+.summary{
+    background:#eef7ff;
+    border-left:5px solid #5a9bd5;
+    padding:15px;
+    margin:20px 0;
+}
+
+img{
+    display:block;
+    margin:auto;
+    margin-top:25px;
+    margin-bottom:25px;
+    width:100%;
+    max-width:1000px;
+    height:auto;
+    border:1px solid #ccc;
+}
+
+a{
+    text-decoration:none;
+    color:#0b5bd3;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+li{
+    margin-bottom:8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>POV Video Automation Workflow (n8n)</h1>
+
+<p>
+This workflow automates the creation of short AI-generated videos from prompts stored in a
+Google Sheet. It generates an image using Hugging Face FLUX, converts the image into a video
+using RunwayML Gen-3 Turbo, waits until the rendering is complete, downloads the generated
+video, and stores it locally. 
+
+<br><br>The gen-AI shorts are them assembled into a single video, 
+with and automated narration created with the TTS (text-to-speech) Python module added to the final video.
+</p>
+
+<div class="summary">
+
+<h2>Workflow Summary</h2>
+
+<p>
+
+The workflow performs the following operations:
+
+</p>
+
+<ol>
+
+<li>Reads a prompt from a Google Sheet.</li>
+
+<li>Checks whether the corresponding image already exists locally.</li>
+
+<li>If the image does not exist, generates it using Hugging Face FLUX.</li>
+
+<li>Saves the generated image to disk.</li>
+
+<li>Converts the image into a Base64 string.</li>
+
+<li>Submits the image to RunwayML Gen-3 Turbo for image-to-video generation.</li>
+
+<li>Waits while Runway renders the video.</li>
+
+<li>Polls the Runway API until the rendering is complete.</li>
+
+<li>Downloads the generated video.</li>
+
+<li>Saves the final video locally.</li>
+
+</ol>
+
+</div>
+
+<h2>Detailed Node Description</h2>
+
+<h3>1. Click to Exec WF.</h3>
+
+<p>Starts with a manual trigger, for more control. Starts the WF with a user input (step number) through an n8n form.</p>
+
+<h3>2. Reads AI sheet</h3>
+
+<p>
+Looks up the corresponding row in a Google Sheet using the supplied sequence number and retrieves
+the prompt to be used for image generation (this node can be manually configured for touch-ups).
+</p>
+
+<h3>3. Check If Img Exists</h3>
+
+<p>
+Attempts to read the expected image file from disk.
+If the image already exists, image generation is skipped.
+Otherwise, the workflow generates a new image.
+</p>
+
+<h3>4. Code in JS</h3>
+
+<p>Extracts the prompt from the Google Sheet and prepares it for the subsequent API calls.</p>
+
+<h3>5. Gen HF image</h3>
+
+<p>Uses the Hugging Face inference API (FLUX.1-schnell) to generate an image from the prompt.</p>
+
+<h3>6. Write Img to Disk</h3>
+
+<p>Stores the generated PNG image locally.</p>
+
+<h3>7. Extract from File</h3>
+
+<p>Reads the image and converts it into Base64 so it can be submitted to the RunwayML API.</p>
+
+<h3>8. Run Runway ML</h3>
+
+<p>Sends the Base64 image together with the prompt to RunwayML Gen-3 Turbo to generate a short video (user credits needed).</p>
+
+<h3>9. Wait For Video</h3>
+
+<p>Introduces a delay before checking whether the video generation has completed.</p>
+
+<h3>10. Get video URL</h3>
+
+<p>Queries the Runway ML task endpoint to obtain the current rendering status.</p>
+
+<h3>11. Check Status</h3>
+
+<p>
+Determines whether rendering has completed.
+If not, the workflow waits again and repeats the status check.
+</p>
+
+<h3>12. Get Video bin</h3>
+
+<p>Downloads the finished video once Runway ML reports that rendering has succeeded.</p>
+
+<h3>13. Write Video To Disk</h3>
+
+<p>Saves the generated MP4 video to the local disk.</p>
+
+<h2>Workflow JSON</h2>
+
+<p>You can download the workflow here:</p>
+
+<p>
+
+<a href="POV_YT_n8n_WF-No_Secrets.json">POV_YT_n8n_WF-No_Secrets.json</a>
+
+</p>
+
+<div class="note">
+
+<b>Important</b>
+
+<p>For security reasons the RunwayML API key has been removed from the shared workflow.</p>
+
+<p>Replace the placeholder</p>
+
+<pre>Bearer YOUR_RUNWAYML_API_KEY</pre>
+
+<p>with your own RunwayML API key before running the workflow.</p>
+
+</div>
+
+<h2>Workflow Diagram</h2>
+
+<p>The snapshot below shows the complete workflow inside n8n.</p>
+
+<img src="https://raw.githubusercontent.com/jrsousa2/Python/main/n8n/n8n%20WF.png" alt="n8n Workflow">
+
+</body>
+</html>
