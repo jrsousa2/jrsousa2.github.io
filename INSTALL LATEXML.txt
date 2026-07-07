@@ -1,0 +1,20 @@
+choco install latexml -y
+
+latexmlc --version
+
+latexmlc input.tex --dest output.html
+
+REM THIS ONE IS WORKING
+latexmlc "D:\Math\11o paper(Cubic)\Cubic.tex" --dest "D:\GH\Cubic.html"
+
+REM TEST THE CODE
+latexmlc "D:\Math\11o paper(Cubic)\Cubic.tex" --dest "D:\Math\11o paper(Cubic)\Cubic.html"
+
+C:\Strawberry\perl\bin
+
+C:\Strawberry\perl\site\bin
+
+REM INSTALACAO TOTALMENTE BUGGY. USAR COMO ABAIXO.
+
+C:\Strawberry\perl\site\bin>C:\Strawberry\perl\bin\perl.exe C:\Strawberry\perl\site\bin\latexmlc --VERSION
+latexmlc (LaTeXML version 0.8.8)
