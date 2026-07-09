@@ -41,6 +41,40 @@
       z-index: 1000;
     }
 
+  /* TOP NAVIGATION MENU */
+  .topnav {
+    position: sticky;
+    top: 0;
+    padding: 15px 0;
+    text-align: center;
+    z-index: 9999;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .topnav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 18px;
+  }
+
+  .topnav a:hover {
+    color: #4FC3F7;
+  }
+
+  /* PREVENTS THE CURSOR FROM HIDING THE BEGINNING OF THE SECTION */
+  html {
+      scroll-behavior: smooth;
+  }
+
+  section {
+      scroll-margin-top: 70px;
+  }
   </style>
 
  <!-- THIS IS FOR GOOGLE ANALYTICS -->
@@ -58,67 +92,73 @@
 </head>
 <body>
 
+  <!-- THE LIST OF TOPICS  -->
+  <nav class="topnav">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#SAS">SAS</a>
+    <a href="#python">Python</a>
+    <a href="#math">Math</a>
+    <a href="#applets">Applets</a>
+  </nav>
+
   <img src="Resized.png" class="profile-pic" alt="José">
 
-  <h1>
-  <a href="https://github.com/jrsousa2">José R. Sousa</a>
-  </h1>
-  <!-- <h2>NC/FL/NY</h2> -->
-  <p><b>Data Analyst/Data Scientist</b> with 15+ years of experience (mostly in insurance and banking).
-     <br>I have experience in SAS, SQL, various databases, Python (not a full-stack dev), Big Data, predictive modeling, machine learning, AML, etc.
-     <br>I have working knowledge of Databricks, Apache Spark, PySpark, Snowflake and Cloud.
-     
-     <br><span style="color:orange">I'm a US citizen,</span> had a green card through National General (NY) previously. 
+  <section id="about"> 
+    <h1><a href="https://github.com/jrsousa2">José R. Sousa</a></h1>
+    <!-- <h2>NC/FL/NY</h2> -->
+    <p><b>Data Analyst/Data Scientist</b> with 15+ years of experience (mostly in insurance and banking).
+      <br>I have experience in SAS, SQL, various databases, Python (not a full-stack dev), Big Data, predictive modeling, machine learning, AML, etc.
+      <br>I have working knowledge of Databricks, Apache Spark, PySpark, Snowflake and Cloud.
+      
+      <br><span style="color:orange">I'm a US citizen,</span> had a green card through National General (NY) previously. 
 
-     <br><br><span style="color:violet"><i>If you are an Indian recruiter, please only contact me if you are working directly for the client! Indirect 
-      recruiters only make one's job search longer and harder (false leads).</i></span>
+      <br><br><span style="color:violet"><i>If you are an Indian recruiter, please only contact me if you are working directly for the client! Indirect 
+        recruiters only make one's job search longer and harder (false leads).</i></span>
 
-     <br><br>I'm looking for a new role where I can work remotely or 3- days onsite (looking for work-life balance, 
-     but doesn't mean I don't work hard!). I can relocate (FL, NC, PA, NY, NJ and TX). 
-     <br>I was promoted to Data Manager at NatGen by the Chief Actuary. I was rehired by Wells Fargo and offered an FTE (had to take a break for personal reasons). 
-     <br>I have great technical skills -- I love working with technology and am a fast learner when it comes to new tools (some jobs
-     require tools that can be mastered on the job). For example, at AIG I learned how to create ETL's to 
-     convert flat files on an IBM mainframe to SAS tables on Windows, on the job. It uses COBOL types.
-     <br><span style="color:violet">My work style is independent, I require minimal supervision. In my last role with Wells Fargo I was a go-to person for challenging technical questions.</span>
+      <br><br>I'm looking for a new role where I can work remotely or 3- days onsite (looking for work-life balance, 
+      but doesn't mean I don't work hard!). I can relocate (FL, NC, PA, NY, NJ and TX). 
+      <br>I was promoted to Data Manager at NatGen by the Chief Actuary. I was rehired by Wells Fargo and offered an FTE (had to take a break for personal reasons). 
+      <br>I have great technical skills -- I love working with technology and am a fast learner when it comes to new tools (some jobs
+      require tools that can be mastered on the job). For example, at AIG I learned how to create ETL's to 
+      convert flat files on an IBM mainframe to SAS tables on Windows, on the job. It uses COBOL types.
+      <br><span style="color:violet">My work style is independent, I require minimal supervision. In my last role with Wells Fargo I was a go-to person for challenging technical questions.</span>
 
-     <br><br><span style="color:orange">I'm open to transitioning back into data science</span>, I'm great with data management and experienced with predictive modeling. 
-     I built a logistic regression model to predict the risk of auto policyholders at an insurer and it was deployed in their underwriting system,
-     which allowed them to select the best risk and deny coverage to the worst risk, leading to an improved loss ratio.
-     I also built a GLM model to predict the bare land value of properties in Orange County, CA, using real estate and GIS data (hedonic model).
-     <br><span style="color:orange">I'm fine with other roles that match my skillset as well.</span> 
-     <!-- Ideally a role where I can have a chance to learn new skills too.  -->
+      <br><br><span style="color:orange">I'm open to transitioning back into data science</span>, I'm great with data management and experienced with predictive modeling. 
+      I built a logistic regression model to predict the risk of auto policyholders at an insurer and it was deployed in their underwriting system,
+      which allowed them to select the best risk and deny coverage to the worst risk, leading to an improved loss ratio.
+      I also built a GLM model to predict the bare land value of properties in Orange County, CA, using real estate and GIS data (hedonic model).
+      <br><span style="color:orange">I'm fine with other roles that match my skillset as well.</span> 
+      <!-- Ideally a role where I can have a chance to learn new skills too.  -->
+  </section>
 
-     <br><br>I have degrees in both <b>statistics</b> and <b>math</b> from the University of S&atilde;o Paulo (the best in Brazil). 
+  <section id="education">  
+     I have degrees in both <b>statistics</b> and <b>math</b> from the University of S&atilde;o Paulo (the best in Brazil). 
      I also have an <b>MBA</b> from EAESP-FGV in S&atilde;o Paulo (an accredited business school).
 
-<!-- THIS RENDERS THE PDF'S IN GH ITSELF -->
-<!-- <p><br>My resumes:
-  <br><a href="https://github.com/jrsousa2/Resume/blob/main/Jose's%20resume.pdf">Data Analysis</a>
-  <br><a href="https://github.com/jrsousa2/Resume/blob/main/Jose's%20resume-DS.pdf">Data Science</a>
-</p> -->
-
-<table border="1" cellpadding="8" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Accreditor</th>
-      <th>Country</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>AACSB (Association to Advance Collegiate Schools of Business)</td>
-      <td>USA</td>
-    </tr>
-    <tr>
-      <td>AMBA (Association of MBAs)</td>
-      <td>UK</td>
-    </tr>
-    <tr>
-      <td>EQUIS (EFMD Quality Improvement System)</td>
-      <td>Belgium</td>
-    </tr>
-  </tbody>
-</table>
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Accreditor</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AACSB (Association to Advance Collegiate Schools of Business)</td>
+          <td>USA</td>
+        </tr>
+        <tr>
+          <td>AMBA (Association of MBAs)</td>
+          <td>UK</td>
+        </tr>
+        <tr>
+          <td>EQUIS (EFMD Quality Improvement System)</td>
+          <td>Belgium</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
   <br>Resumes:
   <br><a href="https://raw.githubusercontent.com/jrsousa2/Resume/main/Jose's%20resume.pdf">Data Analysis</a>
@@ -129,103 +169,106 @@
 <!-- HR LINE -->
 <hr style="border: none; border-top: 3px solid #7A8B99; margin: 0;">
 
-<h3>Reports created in SAS</h3>
+<section id="SAS">
+  <h3>Reports created in SAS</h3>
 
-<p>A dashboard created with SAS/GRAPH</p>
-<ul>
-  <li><a href="SAS_graph.html">Web tracker dashboard</a></li>
-</ul>
+  <p>A dashboard created with SAS/GRAPH</p>
+  <ul>
+    <li><a href="SAS_graph.html">Web tracker dashboard</a></li>
+  </ul>
 
-<p>SAS stored processes to automate data extracts</p>
-<ul>
-  <li><a href="Auto_IF_Rpt.html">Pull in-force auto policies</a></li>
-  <li><a href="Auto_LR_Rpt.html">Create auto yearly loss ratio reports</a></li>
-  <li><a href="Prop_LR_Rpt.html">Create property monthly loss ratio reports</a></li>
-  <li><a href="FB_SP.html">Pull db canned reports</a></li>
-</ul>
+  <p>SAS stored processes to automate data extracts</p>
+  <ul>
+    <li><a href="Auto_IF_Rpt.html">Pull in-force auto policies</a></li>
+    <li><a href="Auto_LR_Rpt.html">Create auto yearly loss ratio reports</a></li>
+    <li><a href="Prop_LR_Rpt.html">Create property monthly loss ratio reports</a></li>
+    <li><a href="FB_SP.html">Pull db canned reports</a></li>
+  </ul>
 
-<p>A Proc Report Excel output (redacted)</p>
-<ul>
-  <li><a href="https://github.com/jrsousa2/SAS/blob/main/Proc%20Report/Proc%20Report%20sample.png">SAS Proc Report</a></li>
-</ul>
+  <p>A Proc Report Excel output (redacted)</p>
+  <ul>
+    <li><a href="https://github.com/jrsousa2/SAS/blob/main/Proc%20Report/Proc%20Report%20sample.png">SAS Proc Report</a></li>
+  </ul>
+</section>  
 
 <!-- HR LINE -->
 <hr style="border: none; border-top: 3px solid #7A8B99; margin: 0;">
 
-<h3>Python projects developed in VS Code 🐍</h3>
+<section id="python">
+  <h3>Python projects developed in VS Code 🐍</h3>
 
-<p>
-I have a knack for programming, both in SAS and in Python and in any of the other languages I've used, such as VBA and Vbscript (it's about algorithm development, not memorization). 
-</p>
+  <p>
+  I have a knack for programming, both in SAS and in Python and in any of the other languages I've used, such as VBA and Vbscript (it's about algorithm development, not memorization). 
+  </p>
 
-<p>Here are some projects that I've developed (<i>not just in Python</i>):</p>
+  <p>Here are some projects that I've developed (<i>not just in Python</i>):</p>
 
-<ul>
-  <li>Creation of video/images with Gen AI/AI Prompting/TTS. <a href="https://youtu.be/SsHmTKZYvJQ">Gen AI video</a></li>
+  <ul>
+    <li>Creation of video/images with Gen AI/AI Prompting/TTS. <a href="https://youtu.be/SsHmTKZYvJQ">Gen AI video</a></li>
 
-  <li>Using n8n (a NoCode orchestration tool) to automate Gen AI. <a href="n8n_video_WF.html">n8n WF</a></li>
+    <li>Using n8n (a NoCode orchestration tool) to automate Gen AI. <a href="n8n_video_WF.html">n8n WF</a></li>
 
-  <li>Cloning my own voice with the TTS module.</li>
+    <li>Cloning my own voice with the TTS module.</li>
 
-  <li>Checking a stock price online and sending an e-mail alert if price above target.</li>
+    <li>Checking a stock price online and sending an e-mail alert if price above target.</li>
 
-  <li>Scheduling workflows on <span style="color: #2DA44E;">GitHub</span>. <a href="stock_alert.html">Stock Alert</a></li>
+    <li>Scheduling workflows on <span style="color: #2DA44E;">GitHub</span>. <a href="stock_alert.html">Stock Alert</a></li>
 
-  <li>Speech recognition and transcription/translation (PT to EN).</li>
+    <li>Speech recognition and transcription/translation (PT to EN).</li>
 
-  <li>Automatic creation of subtitle file (.srt) from transcribed/translated audio. <a href="https://youtu.be/FWDDlcXsx_k">Ana Paula</a></li>
+    <li>Automatic creation of subtitle file (.srt) from transcribed/translated audio. <a href="https://youtu.be/FWDDlcXsx_k">Ana Paula</a></li>
 
-  <li>Web scraping of tables on Wikipedia using BeautifulSoup.</li>
+    <li>Web scraping of tables on Wikipedia using BeautifulSoup.</li>
 
-  <li>Automatic creation of formatted PowerPoint slides with data scraped from Wikipedia. <a href="https://youtu.be/hOnESTqThUs">200 Brazilian actresses</a></li>
+    <li>Automatic creation of formatted PowerPoint slides with data scraped from Wikipedia. <a href="https://youtu.be/hOnESTqThUs">200 Brazilian actresses</a></li>
 
-  <li>Automating tasks of apps that don't expose an API (e.g., applying auto correct to images in Office Picture Manager).</li>
+    <li>Automating tasks of apps that don't expose an API (e.g., applying auto correct to images in Office Picture Manager).</li>
 
-  <li>Creating <span style="color: #4FC3F7">SQLite database</span> tables from Excel files and using them for 
-    <span style="color: #4FC3F7">running SQL queries using Python</span> (with SQLAlchemy, pyodbc, etc.).</li>
+    <li>Creating <span style="color: #4FC3F7">SQLite database</span> tables from Excel files and using them for 
+      <span style="color: #4FC3F7">running SQL queries using Python</span> (with SQLAlchemy, pyodbc, etc.).</li>
 
-  <!-- <li>Given a person's name in a given language, predict the gender of the person.</li> -->
+    <!-- <li>Given a person's name in a given language, predict the gender of the person.</li> -->
 
-  <li>Installing, configuring and debugging PySpark on Windows (Python 3.11.8, Java 11.0, Hadoop 3.3.5), for Big Data.</li>
+    <li>Installing, configuring and debugging PySpark on Windows (Python 3.11.8, Java 11.0, Hadoop 3.3.5), for Big Data.</li>
 
-<li>
-  Fitting models such as Logistic Regression using PySpark ML
-  (<a href="https://github.com/jrsousa2/Python/blob/main/README.md#fitting-of-a-logistic-regression-with-pyspark-to-a-credit-risk-file-available-on-the-internet">Logistic Regression</a>)
-  <!-- (<a href="https://github.com/jrsousa2/Python/blob/main/README.md#fitting-models-such-as-logistic-regression-using-pyspark-ml">Logistic Regression</a>) -->
-</li>
+  <li>
+    Fitting models such as Logistic Regression using PySpark ML
+    (<a href="https://github.com/jrsousa2/Python/blob/main/README.md#fitting-of-a-logistic-regression-with-pyspark-to-a-credit-risk-file-available-on-the-internet">Logistic Regression</a>)
+    <!-- (<a href="https://github.com/jrsousa2/Python/blob/main/README.md#fitting-models-such-as-logistic-regression-using-pyspark-ml">Logistic Regression</a>) -->
+  </li>
 
-  <li>AI video/image enhancement using Real-ESRGAN. <a href="AI_enhance.html">AI Enhancement</a></li>
+    <li>AI video/image enhancement using Real-ESRGAN. <a href="AI_enhance.html">AI Enhancement</a></li>
 
-  <li>Video enhancement using proprietary AI: <a href="https://drive.google.com/uc?export=download&id=1KPbJ059M8ViDMZrEMk061beRpZBdeGB2">Enhanced</a> vs. 
-    <a href="https://redeglobo.globo.com/video/relembre-a-abertura-do-balao-magico-em-1983-1037992.ghtml">Original</a></li>
+    <li>Video enhancement using proprietary AI: <a href="https://drive.google.com/uc?export=download&id=1KPbJ059M8ViDMZrEMk061beRpZBdeGB2">Enhanced</a> vs. 
+      <a href="https://redeglobo.globo.com/video/relembre-a-abertura-do-balao-magico-em-1983-1037992.ghtml">Original</a></li>
 
-  <li>Checking if NVIDIA CUDA is enabled after installation.</li>
+    <li>Checking if NVIDIA CUDA is enabled after installation.</li>
 
-  <li>Play counts syncing between iTunes and Windows Media Player. <a href="https://jrsousa2.gumroad.com/l/Plays_Sync">GUI applet</a></li>
+    <li>Play counts syncing between iTunes and Windows Media Player. <a href="https://jrsousa2.gumroad.com/l/Plays_Sync">GUI applet</a></li>
 
-  <li>Moving mp3 files into their correct folders and creating full log files of changes.</li>
+    <li>Moving mp3 files into their correct folders and creating full log files of changes.</li>
 
-  <li>Searching, downloading, and attaching mp3 artwork (Apple/Discogs) using REST API's and logging results.</li>
+    <li>Searching, downloading, and attaching mp3 artwork (Apple/Discogs) using REST API's and logging results.</li>
 
-  <li>Image pattern recognition for mp3 covers (detecting generic vinyl/LP covers and replacing them).</li>
+    <li>Image pattern recognition for mp3 covers (detecting generic vinyl/LP covers and replacing them).</li>
 
-  <li>Auto-populating mp3 tags using Discogs data using REST API.</li>
+    <li>Auto-populating mp3 tags using Discogs data using REST API.</li>
 
-  <li>Synchronizing mp3 tag names with file names to resolve inconsistencies.</li>
+    <li>Synchronizing mp3 tag names with file names to resolve inconsistencies.</li>
 
-  <li>Incremental backup of roughly 63k mp3 files from SSD to MicroSD (mirrored backup system).</li>
+    <li>Incremental backup of roughly 63k mp3 files from SSD to MicroSD (mirrored backup system).</li>
 
-  <li>Downloading videos from YouTube automatically (cookies may be required).</li>
+    <li>Downloading videos from YouTube automatically (cookies may be required).</li>
 
-  <li>Creating standalone executables from Python scripts.</li>
+    <li>Creating standalone executables from Python scripts.</li>
 
-  <li>Passing functions as parameters using lambda and dynamic execution.</li>
+    <li>Passing functions as parameters using lambda and dynamic execution.</li>
 
-  <li>Image, audio, and video processing using ffmpeg.</li>
+    <li>Image, audio, and video processing using ffmpeg.</li>
 
-  <li>Running Windows shell commands from Python.</li>
-</ul>
-
+    <li>Running Windows shell commands from Python.</li>
+  </ul>
+</section>
 
 <!-- HR LINE -->
 <hr style="border: none; border-top: 3px solid #7A8B99; margin: 0;">
@@ -239,44 +282,46 @@ I have a knack for programming, both in SAS and in Python and in any of the othe
 <!-- HR LINE -->
 <hr style="border: none; border-top: 3px solid #7A8B99; margin: 0;">
 
+<section id="math">
+  <h3>Personal math research</h3>
+  <p>
+  I plan to upload my latest paper in Number Theory here as soon as it's finished (very close now). 
+  It introduces a new symmetry relation for the Lerch &Phi; function that may have implications for proving if a number is algebraic or transcendental (still checking). It is a generalization of the Riemann functional equation with three variables.
+  <br><br>Using GitHub for the first time as an option to pre-print repositories (using <span style="color: #EA4335;">Google Analytics</span> to track page hits).
+  </p>
 
-<h3>Personal math research</h3>
-<p>
-I plan to upload my latest paper in Number Theory here as soon as it's finished (very close now). 
-It introduces a new symmetry relation for the Lerch &Phi; function that may have implications for proving if a number is algebraic or transcendental (still checking). It is a generalization of the Riemann functional equation with three variables.
-<br><br>Using GitHub for the first time as an option to pre-print repositories (using <span style="color: #EA4335;">Google Analytics</span> to track page hits).
-</p>
+    <h3>Research papers on arXiv<br> <!-- IF SPACE IS NEEDED BEFORE THE @ margin-left: 10px; -->
+      <span style="font-size: 18px; font-weight: normal; margin-left: 10px; ">
+        © Jose R. Sousa. All rights reserved.
+      </span>
+    </h3>
+    <!-- <h3>© Jose R. Sousa. All rights reserved.</h3> -->
 
-  <h3>Research papers on arXiv<br> <!-- IF SPACE IS NEEDED BEFORE THE @ margin-left: 10px; -->
-    <span style="font-size: 18px; font-weight: normal; margin-left: 10px; ">
-      © Jose R. Sousa. All rights reserved.
-    </span>
-  </h3>
-  <!-- <h3>© Jose R. Sousa. All rights reserved.</h3> -->
+    <ul>
+      <li><a href="https://arxiv.org/html/1810.07877v7">Generalized Harmonic Numbers</a></li>
+      <li><a href="https://arxiv.org/html/1811.11305v18">Generalized Harmonic Progressions</a></li>
+      <li><a href="https://arxiv.org/html/1902.06885v10">The Hurwitz Zeta Function at the Positive Integers</a></li>
+      <li><a href="https://arxiv.org/html/2006.08406v14">Lerch's &Phi; and the Polylogarithm at the Positive Integers</a></li>
+      <li><a href="https://arxiv.org/html/2109.15306v7">Lerch's &Phi; and the Polylogarithm at the Negative Integers</a></li>
+    </ul>
 
-  <ul>
-    <li><a href="https://arxiv.org/html/1810.07877v7">Generalized Harmonic Numbers</a></li>
-    <li><a href="https://arxiv.org/html/1811.11305v18">Generalized Harmonic Progressions</a></li>
-    <li><a href="https://arxiv.org/html/1902.06885v10">The Hurwitz Zeta Function at the Positive Integers</a></li>
-    <li><a href="https://arxiv.org/html/2006.08406v14">Lerch's &Phi; and the Polylogarithm at the Positive Integers</a></li>
-    <li><a href="https://arxiv.org/html/2109.15306v7">Lerch's &Phi; and the Polylogarithm at the Negative Integers</a></li>
-  </ul>
-
-  <h3>Blog-style research expositions</h3>
-  <ul>
-    <li><a href="Cubic.html">A New Method for the Cubic Polynomial Equation</a></li>
-  </ul>
+    <h3>Blog-style research expositions</h3>
+    <ul>
+      <li><a href="Cubic.html">A New Method for the Cubic Polynomial Equation</a></li>
+    </ul>
+</section>
 
 <!-- HR LINE -->
 <hr style="border: none; border-top: 3px solid #7A8B99; margin: 0;">
 
 
-<h3>Applets on Gumroad</h3>
-  <ul>
-    <li><a href="https://jrsousa2.gumroad.com/l/Plays_Sync">Sync your iTunes and WMP play counts</a></li>
-    <li><a href="https://jrsousa2.gumroad.com/l/itunes">iTunes library migration</a></li>
-  </ul>
-
+<section id="applets">
+  <h3>Applets on Gumroad</h3>
+    <ul>
+      <li><a href="https://jrsousa2.gumroad.com/l/Plays_Sync">Sync your iTunes and WMP play counts</a></li>
+      <li><a href="https://jrsousa2.gumroad.com/l/itunes">iTunes library migration</a></li>
+    </ul>
+</section>
 
 <!-- HR LINE -->
 <hr style="border: none; border-top: 3px solid #7A8B99; margin: 0;">
